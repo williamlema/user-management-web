@@ -28,13 +28,28 @@
   </tbody>
 </table>
   </div>
-    <div class="col-sm-3">
-      <button (click)="dowloadUser('csv')" class="btn btn-success btn-block"> Descargar datos (CSV) </button>
-      <button (click)="dowloadUser('xls')" class="btn btn-success btn-block"> Descargar datos (xls) </button>
-      <button (click)="dowloadUser('xlsx')" class="btn btn-success btn-block"> Descargar datos (xlsx) </button>
-
+  <div class="col-sm-3">
+    <div class="row" *ngIf="userPermissions.readOtherUserData">
+      <a class="btn btn-success btn-block" href="http://localhost:5000/export/users.xlsx"> Descargar datos (xlsx)</a>
+      <a class="btn btn-success btn-block" href="http://localhost:5000/export/users.xls"> Descargar datos (xls)</a>
+      <a class="btn btn-success btn-block" href="http://localhost:5000/export/users.csv"> Descargar datos (CSV)</a>
+    </div>
+    <div class="row"  *ngIf="userPermissions.editOtherUserData">
+      <h5 class="card-title mb-4 mt-1">Importar usuarios</h5>
+      <div>
+        <form [formGroup] = "uploadForm" (ngSubmit)="doUpLoadFile()">
+          <div class="form-group">
+            <input type="file" name="profile" (change)="onFileSelect($event)" />
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary btn-block">Importar</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
+
+
 <div class="row">
   <div class="col-sm-3"></div>
   <div class="col-sm-6" *ngIf="editUser">

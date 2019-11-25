@@ -3,6 +3,10 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 
+export class Token {
+  token: string;
+}
+
 @Component({
   selector: 'app-complete-login',
   templateUrl: './complete-login.component.html',
@@ -29,7 +33,7 @@ export class CompleteLoginComponent implements OnInit {
   }
 
   public completeLogin() {
-    this.http.post(this.loginUrl, this.credentialForms.getRawValue())
+    this.http.post<Token>(this.loginUrl, this.credentialForms.getRawValue())
       .subscribe(value => this.redirectToHome(value.token));
   }
 

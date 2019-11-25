@@ -11,17 +11,19 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 export class ManagementComponent implements OnInit {
   private userUrl = 'http://localhost:5000/user';
   private usersUrl = 'http://localhost:5000/user/all';
+  private importUser = 'http://localhost:5000/register/bulk';
 
   allUsers: Array<User>;
   editUser: boolean;
   userForm: FormGroup;
+  uploadForm: FormGroup;
   @Input() userPermissions: Permissions;
 
   private httpOptions = {
     headers: new HttpHeaders(
       { Authorization: localStorage.getItem('token'),
         'Access-Control-Allow-Origin' : '*',
-        'Access-Control-Request-Methods' : 'GET, PATCH',
+        'Access-Control-Request-Methods' : 'GET, PATCH, POST',
         'Access-Control-Request-Header' : 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
       })
   };
@@ -40,17 +42,27 @@ export class ManagementComponent implements OnInit {
       }
     );
     this.getAllUser();
+    this.uploadForm = this.fb.group({
+      profile: ['']
+    });
   }
 
-  /*public dowloadUser(type: SupportedExtensions) {
-    const exportAsConfig: ExportAsConfig = {
-      type,
-      elementId: 'systemUser', // the id of html/table element
+  onFileSelect(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.uploadForm.get('profile').setValue(file);
     }
-    this.exportAsService.save(exportAsConfig, 'systemUser').subscribe(() => {
-      // save started
-    });
-  }*/
+  }
+
+  doUpLoadFile() {
+    const formData = new FormData();
+    formData.append('userFile', this.uploadForm.get('profile').value);
+
+    this.http.post<any>(this.importUser, formData, this.httpOptions).subscribe(
+      (res) => this.getAllUser(),
+      (err) => console.log(err)
+    );
+  }
 
   public selectUser(user: User) {
     this.editUser = true;

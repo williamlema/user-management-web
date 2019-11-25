@@ -1,0 +1,44 @@
+<div class="container">
+
+<div class="row">
+  <div class="col-sm-12">
+    <a class="float-right btn btn-outline-primary" (click)="logout()">Salir</a>
+  </div>
+</div>
+<div class="row">
+
+  <div class="col-sm-6" *ngIf="userPermission.readOwnData">
+    <h4 class="card-title mb-4 mt-1">Informacion personal</h4>
+    <form [formGroup]="userForm">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input formControlName="name"  class="form-control" type="text">
+      </div>
+      <div class="form-group">
+        <label>UserName</label>
+        <input formControlName="userName" class="form-control" type="text">
+      </div>
+      <div class="form-group">
+        <label>Correo electronico</label>
+        <input formControlName="email" class="form-control" type="text">
+      </div>
+      <div class="form-group">
+        <label>Celular</label>
+        <input formControlName="phoneNumber" class="form-control" type="text">
+      </div>
+      <div class="form-group" *ngIf="userPermission.editOwnData">
+        <button (click)="doEnableFields()" class="btn btn-warning btn-block"> Actualizar </button>
+        <button (click)="doUpdate()" class="btn btn-success btn-block"> Guardar </button>
+      </div>
+    </form>
+  </div>
+</div>
+  <br/>
+  <div class="row">
+    <app-management *ngIf="userPermission.readOtherUserData" [userPermissions]="userPermission" ></app-management>
+  </div>
+  <br/>
+  <div class="row">
+    <app-rol *ngIf="userPermission.updatePermission"></app-rol>
+  </div>
+</div>

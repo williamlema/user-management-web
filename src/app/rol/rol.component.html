@@ -1,0 +1,66 @@
+<div class="row">
+  <h4 class="card-title mb-4 mt-1">Informacion de roles y permisos</h4>
+</div>
+<div class="row">
+  <table class="table">
+    <thead class="thead-light">
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Ver su data?</th>
+      <th scope="col">Editar su data?</th>
+      <th scope="col">Ver data de otro usuario?</th>
+      <th scope="col">Editar data de otro usuario?</th>
+      <th scope="col">Modificar permisos?</th>
+      <th scope="col"> </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let permissions of allPermissions">
+      <th scope="row">{{permissions.description}}</th>
+      <td>{{permissions.readOwnData?'Si':'No'}}</td>
+      <td>{{permissions.editOwnData?'Si':'No'}}</td>
+      <td>{{permissions.readOtherUserData?'Si':'No'}}</td>
+      <td>{{permissions.editOtherUserData?'Si':'No'}}</td>
+      <td>{{permissions.updatePermission?'Si':'No'}}</td>
+      <td>  <span aria-hidden="true" (click)="selectPermision(permissions)">&plusmn; Edit</span> </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="row">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-6" *ngIf="editPermission">
+    <h4 class="card-title mb-4 mt-1">Actualizacion de datos</h4>
+    <form [formGroup]="permisionForm">
+      <div class="form-group">
+        <label>Description</label>
+        <input formControlName="description"  class="form-control" type="text">
+      </div>
+      <div class="form-group">
+        <label>Puede actualizar permisos?</label>
+        <input formControlName="updatePermission" class="form-control" type="checkbox">
+      </div>
+      <div class="form-group">
+        <label>Puede leer su propia data?</label>
+        <input formControlName="readOwnData" class="form-control" type="checkbox">
+      </div>
+      <div class="form-group">
+        <label>Puede editar su propia data?</label>
+        <input formControlName="editOwnData" class="form-control" type="checkbox">
+      </div>
+      <div class="form-group">
+        <label>Puede leer data de otro usuario?</label>
+        <input formControlName="readOtherUserData" class="form-control" type="checkbox">
+      </div>
+      <div class="form-group">
+        <label>Puede editar data de otro usuario?</label>
+        <input formControlName="editOtherUserData" class="form-control" type="checkbox">
+      </div>
+      <div class="form-group" >
+        <button (click)="editRol()" class="btn btn-success btn-block"> Guardar </button>
+        <button (click)="cancelEdition()" class="btn btn-danger btn-block"> Cancelar </button>
+
+      </div>
+    </form>
+  </div>
+</div>

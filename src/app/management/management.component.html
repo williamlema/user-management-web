@@ -1,0 +1,66 @@
+<div class="row">
+  <h4 class="card-title mb-4 mt-1">Informacion de todos los usuarios</h4>
+</div>
+
+<div class="row">
+  <div class="col-sm-9">
+
+  <table class="table" id="systemUser">
+  <thead class="thead-light">
+  <tr>
+    <th scope="col">Nombre</th>
+    <th scope="col">Rol</th>
+    <th scope="col">UserName</th>
+    <th scope="col">Email</th>
+    <th scope="col">Celular</th>
+    <th scope="col"> </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let usr of allUsers">
+    <th scope="row">{{usr.name}}</th>
+    <td>{{usr.permissions.description}}</td>
+    <td>{{usr.userName}}</td>
+    <td>{{usr.email}}</td>
+    <td>{{usr.phoneNumber}}</td>
+    <td *ngIf="userPermissions.editOtherUserData">  <span aria-hidden="true" (click)="selectUser(usr)">&plusmn; Edit</span> </td>
+  </tr>
+  </tbody>
+</table>
+  </div>
+    <div class="col-sm-3">
+      <button (click)="dowloadUser('csv')" class="btn btn-success btn-block"> Descargar datos (CSV) </button>
+      <button (click)="dowloadUser('xls')" class="btn btn-success btn-block"> Descargar datos (xls) </button>
+      <button (click)="dowloadUser('xlsx')" class="btn btn-success btn-block"> Descargar datos (xlsx) </button>
+
+    </div>
+  </div>
+<div class="row">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-6" *ngIf="editUser">
+    <h4 class="card-title mb-4 mt-1">Actualizacion de datos</h4>
+    <form [formGroup]="userForm">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input formControlName="name"  class="form-control" type="text">
+      </div>
+      <div class="form-group">
+        <label>UserName</label>
+        <input formControlName="userName" class="form-control" type="text">
+      </div>
+      <div class="form-group">
+        <label>Correo electronico</label>
+        <input formControlName="email" class="form-control" type="text">
+      </div>
+      <div class="form-group">
+        <label>Celular</label>
+        <input formControlName="phoneNumber" class="form-control" type="text">
+      </div>
+      <div class="form-group" >
+        <button (click)="doUpdate()" class="btn btn-success btn-block"> Guardar </button>
+        <button (click)="cancelUpdate()" class="btn btn-danger btn-block"> Cancelar </button>
+
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-sm-3">
+</div>
+<div class="col-sm-6">
+  <a class="float-right btn btn-outline-primary" routerLink="/login">Ingresar</a>
+  <h4 class="card-title mb-4 mt-1">Formularion de inscripcion</h4>
+  <form>
+    <div class="form-group">
+      <label>Nombre</label>
+      <input #name (blur)="setName(name.value)" class="form-control" placeholder="Nombre" type="text">
+    </div>
+    <div class="form-group">
+      <label>UserName</label>
+      <input #userName (blur)="setUserName(userName.value)" class="form-control" placeholder="Username" type="text">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input #password (blur)="setPassword(password.value)" class="form-control" placeholder="******" type="password">
+    </div>
+    <div class="form-group">
+      <label>Correo electronico</label>
+      <input #email (blur)="setEmail(email.value)" class="form-control" placeholder="Correo electronico" type="text">
+    </div>
+    <div class="form-group">
+      <label>Celular</label>
+      <input #celular (blur)="setPhone(celular.value)" class="form-control" placeholder="Celular" type="text">
+    </div>
+    <div class="form-group">
+      <button (click)="doRegister()" class="btn btn-primary btn-block"> Registrar </button>
+    </div>
+  </form>
+  <div class="alert alert-light">
+    Nota: Al finalizar el proceso de inscripcion recibira un correo electronico para verificar la cuenta. Posterior a la verificacion podras ingresar con tu UserName
+  </div>
+</div>
+</div>
